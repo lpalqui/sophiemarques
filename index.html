@@ -70,14 +70,21 @@
   .page {
     position: relative;
     z-index: 3;
-    min-height: 100vh;
     max-width: 1500px;
     margin: 0 auto;
     padding: 18px 36px 8px;
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto auto auto;
     gap: 14px;
   }
+  /* Primeira tela (hero) ainda ocupa quase 100vh */
+  .hero-grid {
+    min-height: calc(100vh - 100px);
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 14px;
+  }
+  .hero-grid .grid { flex: 1; }
 
   .top-bar {
     text-align: center;
@@ -486,6 +493,363 @@
     box-shadow: 0 8px 22px rgba(150, 100, 40, 0.32), inset 0 1px 0 rgba(255,255,255,0.3);
   }
   .thanks-card button:active { transform: translateY(0); }
+
+  /* ======================================================
+     Seções extras (abaixo do hero)
+     ====================================================== */
+  .extra-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    padding: 60px 0 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .extra-section {
+    text-align: center;
+  }
+  .extra-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+    color: #6b4a23;
+    margin-bottom: 8px;
+  }
+  .extra-section .section-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #7a5828;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    margin-bottom: 28px;
+  }
+  .extra-card {
+    background: rgba(255, 247, 230, 0.65);
+    border: 1px solid #e9d4a3;
+    border-radius: 22px;
+    padding: 32px clamp(24px, 4vw, 40px);
+    box-shadow: 0 8px 28px rgba(150, 100, 40, 0.08);
+    text-align: left;
+  }
+  .extra-card p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    color: #5a3f1f;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  .extra-card p:last-child { margin-bottom: 0; }
+  .extra-card strong { color: #a87420; }
+
+  /* Significado do nome */
+  .name-meaning {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .name-meaning .glyph {
+    font-family: 'Allura', cursive;
+    font-size: clamp(5rem, 9vw, 8rem);
+    color: #b8862e;
+    line-height: 0.85;
+    text-shadow: 0 6px 20px rgba(150, 100, 30, 0.18);
+  }
+
+  /* Próximos marcos */
+  .milestones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .milestone {
+    background: linear-gradient(180deg, #fff8e8 0%, #f6e6c2 100%);
+    border: 1px solid #e3c98e;
+    border-radius: 16px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(150, 100, 40, 0.10);
+  }
+  .milestone .ms-emoji {
+    font-size: 2rem;
+    line-height: 1;
+    filter: drop-shadow(0 3px 8px rgba(150,100,40,0.25));
+    margin-bottom: 8px;
+  }
+  .milestone .ms-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: #6b4a23;
+    margin-bottom: 4px;
+  }
+  .milestone .ms-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #8a6a3a;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+  .milestone .ms-countdown {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: #a87420;
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+  .milestone .ms-passed { color: #b09a76; font-style: italic; font-size: 0.95rem; }
+
+  /* Cápsula do tempo */
+  .timecapsule {
+    position: relative;
+    text-align: center;
+    background:
+      linear-gradient(180deg, rgba(255, 247, 222, 0.9) 0%, rgba(247, 230, 192, 0.95) 100%);
+    border: 2px solid #d9a847;
+    border-radius: 22px;
+    padding: 40px 32px;
+    box-shadow: 0 10px 30px rgba(150, 100, 40, 0.18);
+  }
+  .timecapsule .seal {
+    font-family: 'Allura', cursive;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    color: #b8862e;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .timecapsule .seal-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #7a5828;
+    margin-bottom: 18px;
+  }
+  .timecapsule .letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+    color: #5a3f1f;
+    line-height: 1.7;
+    max-width: 620px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+  .timecapsule .stamp {
+    margin-top: 22px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: #9a7a4a;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* Galeria expandida */
+  .expanded-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .expanded-gallery .photo-frame {
+    background: #fdf6e6;
+    padding: 8px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(150, 100, 40, 0.12);
+    border: 1px solid #e9d4a3;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .expanded-gallery .photo-frame:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(150, 100, 40, 0.20);
+  }
+  .expanded-gallery .photo-frame img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(40, 25, 10, 0.85);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    z-index: 40;
+    cursor: pointer;
+  }
+  .lightbox.visible { display: flex; }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 88vh;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+
+  /* Playlist da barriga */
+  .playlist-card {
+    background: linear-gradient(180deg, #fff9ec 0%, #f7e9c8 100%);
+    border: 1px solid #e3c98e;
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: 0 8px 22px rgba(150, 100, 40, 0.12);
+    text-align: center;
+  }
+  .playlist-card p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #5a3f1f;
+    margin-bottom: 18px;
+    font-size: 1.1rem;
+  }
+  .playlist-card iframe {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    border: none;
+    margin: 0 auto;
+    display: block;
+  }
+  .playlist-empty {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #8a6a3a;
+    padding: 24px;
+  }
+
+  /* Mensagens pra Sophie */
+  .messages-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .msg-note {
+    background: linear-gradient(180deg, #fff8e8 0%, #f6e6c2 100%);
+    border: 1px solid #e3c98e;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 4px 14px rgba(150, 100, 40, 0.10);
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .msg-note:hover { transform: translateY(-2px); }
+  .msg-note p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #5a3f1f;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .msg-note .msg-author {
+    font-family: 'Allura', cursive;
+    font-size: 1.4rem;
+    color: #a87420;
+    line-height: 1;
+  }
+
+  /* Missões */
+  .missions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .mission {
+    background: rgba(255, 247, 230, 0.7);
+    border: 1px solid #e9d4a3;
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .mission .ms-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(150,100,40,0.2));
+  }
+  .mission .ms-body {
+    font-family: 'Cormorant Garamond', serif;
+    color: #5a3f1f;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  /* Botões dourados */
+  .gold-btn {
+    border: none;
+    background: linear-gradient(180deg, #d9a847 0%, #b8862e 100%);
+    color: #fff8e6;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    letter-spacing: 1px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(150, 100, 40, 0.25), inset 0 1px 0 rgba(255,255,255,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin: 6px;
+  }
+  .gold-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(150, 100, 40, 0.32), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .gold-btn.outline {
+    background: transparent;
+    color: #a87420;
+    border: 1.5px solid #c8973a;
+    box-shadow: none;
+  }
+  .gold-btn.outline:hover {
+    background: rgba(255, 220, 150, 0.2);
+  }
+
+  /* Easter egg do sabre */
+  .saber-flash {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 110, 180, 0.85) 0%, rgba(255, 80, 160, 0.3) 30%, transparent 70%);
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .saber-flash.active { opacity: 1; }
+  .saber-quote {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(30px);
+    background: linear-gradient(180deg, #fff8e8 0%, #f6e6c2 100%);
+    border: 1px solid #d9a847;
+    border-radius: 18px;
+    padding: 18px 28px;
+    box-shadow: 0 12px 32px rgba(150, 100, 40, 0.30);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #5a3f1f;
+    z-index: 101;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    max-width: 90vw;
+    text-align: center;
+  }
+  .saber-quote.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .sophie-img { cursor: pointer; }
+
+  @media (max-width: 700px) {
+    .name-meaning { grid-template-columns: 1fr; text-align: center; gap: 12px; }
+    .extra-sections { gap: 56px; padding: 40px 0 24px; }
+    .timecapsule { padding: 28px 20px; }
+  }
 </style>
 </head>
 <body>
@@ -500,6 +864,8 @@
 <div class="stars" id="stars"></div>
 
 <div class="page">
+
+  <div class="hero-grid">
 
   <!-- ============ TOPO ============ -->
   <header class="top-bar">
@@ -554,10 +920,10 @@
           <div class="progress-fill" id="progressFill" style="width: 0%"></div>
         </div>
         <div class="progress-marker-row">
-          <span>1º tri</span>
-          <span>2º tri</span>
-          <span>3º tri</span>
-          <span>Sophie chega</span>
+          <span>Iniciante</span>
+          <span>Aprendiz</span>
+          <span>Padawan</span>
+          <span>Cavaleira</span>
         </div>
         <p class="week-status">Estamos na semana <strong id="currentWeek">--</strong> de 40.</p>
       </div>
@@ -599,9 +965,167 @@
 
   </main>
 
+  </div><!-- /hero-grid -->
+
+  <!-- ======================================================
+       SEÇÕES EXTRAS (rolagem abaixo do hero)
+       ====================================================== -->
+  <div class="extra-sections">
+
+    <!-- ===== 1. Significado do nome ===== -->
+    <section class="extra-section">
+      <h2>De onde vem o nome Sophie</h2>
+      <p class="section-sub">a sabedoria da nossa pequena Padawan</p>
+      <div class="extra-card name-meaning">
+        <div class="glyph">Σ</div>
+        <div>
+          <p><strong>Sophie</strong> vem do grego <em>sophía</em>, que significa <strong>sabedoria</strong>. Não a sabedoria de quem leu muitos livros, mas a de quem enxerga com o coração.</p>
+          <p>Combina demais com o caminho do Padawan, que treina a vida toda pra aprender a confiar no que sente. A Sophie chega ao mundo já com esse nome guiando ela, e a gente promete proteger essa essência enquanto ela cresce.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. Próximos marcos ===== -->
+    <section class="extra-section">
+      <h2>Próximos marcos</h2>
+      <p class="section-sub">o que vem por aí na jornada</p>
+      <div class="milestones" id="milestonesGrid">
+        <!-- preenchido por JS -->
+      </div>
+    </section>
+
+    <!-- ===== 3. Cápsula do tempo ===== -->
+    <section class="extra-section">
+      <h2>Cápsula do tempo</h2>
+      <p class="section-sub">uma carta lacrada pra Sophie ler quando crescer</p>
+      <div class="timecapsule">
+        <div class="seal">Pra você, filha</div>
+        <p class="seal-sub">Pra ser aberta nos próximos aniversários</p>
+        <p class="letter">
+          "Esse site existiu antes de você, Sophie. A gente contou os dias, escolheu o seu nome, montou o seu quarto, e cuidou da sua irmã Laura enquanto te esperava. Quando você ler isso, talvez ache estranho que a gente já te amava tanto sem nem te conhecer. Mas é verdade. O amor chegou primeiro, e foi só ficando maior."
+        </p>
+        <div class="stamp">— Mamãe e Papai · maio de 2026 ✦</div>
+      </div>
+    </section>
+
+    <!-- ===== 4. Galeria expandida ===== -->
+    <section class="extra-section">
+      <h2>O ensaio no Rio</h2>
+      <p class="section-sub">o pôr do sol, a praia, e a gente esperando você</p>
+      <div class="expanded-gallery" id="expandedGallery">
+        <div class="photo-frame"><img src="galeria-1.jpg" alt="Luis e Dayana"></div>
+        <div class="photo-frame"><img src="galeria-2.jpg" alt="Dayana com a barriga"></div>
+        <div class="photo-frame"><img src="galeria-3.jpg" alt="Família caminhando"></div>
+        <div class="photo-frame"><img src="galeria-4.jpg" alt="Família andando"></div>
+        <div class="photo-frame"><img src="galeria-5.jpg" alt="Dayana e Laura dançando"></div>
+        <div class="photo-frame"><img src="galeria-6.jpg" alt="Luis beijando a barriga"></div>
+        <div class="photo-frame"><img src="galeria-7.jpg" alt="Dayana com flores"></div>
+        <div class="photo-frame"><img src="galeria-8.jpg" alt="Dayana e Laura nas pedras"></div>
+      </div>
+    </section>
+
+    <!-- ===== 5. Música da barriga ===== -->
+    <section class="extra-section">
+      <h2>A música que toca pra Sophie</h2>
+      <p class="section-sub">a trilha sonora dessa espera</p>
+      <div class="playlist-card">
+        <p>Uma seleção de músicas que ela escuta da barriga. Ela já dança quando algumas tocam.</p>
+        <div id="playlistContainer">
+          <p class="playlist-empty">A playlist do Spotify aparece aqui assim que estiver pronta. Em breve.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. Como conhecer a Sophie ===== -->
+    <section class="extra-section">
+      <h2>Como conhecer a Sophie</h2>
+      <p class="section-sub">o que a gente combinou pra primeira semana</p>
+      <div class="extra-card">
+        <p>Nos primeiros dias depois do nascimento, vamos pedir um pouco de paciência pra estabelecer rotina, amamentação e descanso. A gente promete avisar quando estivermos prontos pra receber visitas.</p>
+        <p><strong>Antes de vir, manda mensagem.</strong> A gente combina horário e duração curta, pra Sophie não cansar e a Dayana se recuperar.</p>
+        <p>Se quiser ajudar, comida pronta ou um café entregue na porta vale ouro. Brinquedo e roupinha podem esperar, mas atenção e carinho a gente recebe de braços abertos.</p>
+      </div>
+    </section>
+
+    <!-- ===== 7. Mensagens pra Sophie ===== -->
+    <section class="extra-section">
+      <h2>Mensagens pra Sophie</h2>
+      <p class="section-sub">deixaram um carinho pra ela ler quando crescer</p>
+      <div class="messages-wall" id="messagesWall">
+        <div class="msg-note">
+          <p>"Bem-vinda, pequena Padawan. Que a Força esteja com você sempre, e que você nunca esqueça do amor que te trouxe ao mundo."</p>
+          <div class="msg-author">Vovó</div>
+        </div>
+        <div class="msg-note">
+          <p>"Já te amo antes mesmo de te ver. Mal posso esperar pra te ensinar a andar de bike, comer chocolate escondido, e tudo que sua mãe achar que é proibido."</p>
+          <div class="msg-author">Dinda</div>
+        </div>
+        <div class="msg-note">
+          <p>"Cresça com fome de mundo, filha. A vida vai ser linda do seu jeito, sem precisar ser como ninguém esperou."</p>
+          <div class="msg-author">Papai</div>
+        </div>
+      </div>
+      <p style="margin-top: 8px;">
+        <a class="gold-btn" id="leaveMessageBtn" href="https://wa.me/5511977577027?text=Quero%20deixar%20uma%20mensagem%20pra%20Sophie%3A%20" target="_blank" rel="noopener">deixar uma mensagem pra ela</a>
+      </p>
+    </section>
+
+    <!-- ===== 8. Missões pra família ===== -->
+    <section class="extra-section">
+      <h2>Missões pra família</h2>
+      <p class="section-sub">jeitos simples de ajudar quando a Sophie chegar</p>
+      <div class="missions">
+        <div class="mission">
+          <div class="ms-icon">🍲</div>
+          <div class="ms-body">Mandar uma marmita caseira ou refeição congelada na primeira semana</div>
+        </div>
+        <div class="mission">
+          <div class="ms-icon">☕</div>
+          <div class="ms-body">Aparecer com café da manhã pronto pra Dayana, sem aviso prévio é melhor ainda</div>
+        </div>
+        <div class="mission">
+          <div class="ms-icon">🎨</div>
+          <div class="ms-body">Tomar conta da Laura por algumas horas pros pais descansarem</div>
+        </div>
+        <div class="mission">
+          <div class="ms-icon">🚿</div>
+          <div class="ms-body">Levar coisas básicas, fralda, lenço, sabonete neutro, sem precisar pedir</div>
+        </div>
+        <div class="mission">
+          <div class="ms-icon">📸</div>
+          <div class="ms-body">Fotografar os primeiros encontros, a gente vai estar muito cansado pra fazer isso</div>
+        </div>
+        <div class="mission">
+          <div class="ms-icon">💌</div>
+          <div class="ms-body">Mandar mensagem dizendo "tô pensando em vocês" sem esperar resposta</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. Compartilhar ===== -->
+    <section class="extra-section">
+      <h2>Compartilhe com quem quiser</h2>
+      <p class="section-sub">junte mais gente nessa torcida</p>
+      <div>
+        <button class="gold-btn" id="shareBtn">compartilhar este site</button>
+        <a class="gold-btn outline" href="https://wa.me/?text=Estamos%20contando%20os%20dias%20pra%20Sophie%20chegar.%20Junte-se%20%C3%A0%20torcida%3A%20https%3A%2F%2Flpalqui.github.io%2Fsophiemarques%2F" target="_blank" rel="noopener">mandar no whatsapp</a>
+      </div>
+    </section>
+
+  </div><!-- /extra-sections -->
+
   <footer>Feito com amor enquanto esperamos a Sophie.</footer>
 
 </div>
+
+<!-- Lightbox da galeria -->
+<div class="lightbox" id="lightbox">
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- Easter egg do sabre -->
+<div class="saber-flash" id="saberFlash"></div>
+<div class="saber-quote" id="saberQuote">"A Padawan está pronta quando o coração dela bate forte." ✦</div>
 
 <script>
   const DUE_DATE = new Date('2026-06-18T00:00:00-03:00');
@@ -697,11 +1221,133 @@
     }
   }
 
+  // ============================================================
+  //  Próximos marcos (contagem regressiva por evento)
+  // ============================================================
+  const MILESTONES = [
+    { emoji: '🩺', title: 'Próxima consulta',  date: '2026-05-22' },
+    { emoji: '👶', title: 'Início do termo',    date: '2026-05-30' },
+    { emoji: '🎒', title: 'Mala da maternidade', date: '2026-06-05' },
+    { emoji: '🌟', title: 'Data prevista',       date: '2026-06-18' },
+  ];
+
+  function renderMilestones() {
+    const grid = document.getElementById('milestonesGrid');
+    if (!grid) return;
+    const now = new Date();
+    const brt = new Date(now.toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+
+    grid.innerHTML = MILESTONES.map(m => {
+      const target = new Date(m.date + 'T00:00:00-03:00');
+      const diff = target - now;
+      const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      const dateStr = target.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' });
+      let countdown;
+      if (days > 1) countdown = `<div class="ms-countdown">em ${days} dias</div>`;
+      else if (days === 1) countdown = `<div class="ms-countdown">amanhã</div>`;
+      else if (days === 0) countdown = `<div class="ms-countdown">hoje</div>`;
+      else countdown = `<div class="ms-passed">já passou</div>`;
+      return `
+        <div class="milestone">
+          <div class="ms-emoji">${m.emoji}</div>
+          <div class="ms-title">${m.title}</div>
+          <div class="ms-date">${dateStr}</div>
+          ${countdown}
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ============================================================
+  //  Lightbox da galeria
+  // ============================================================
+  function setupLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    document.querySelectorAll('.expanded-gallery .photo-frame img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('visible');
+      });
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('visible'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') lightbox.classList.remove('visible');
+    });
+  }
+
+  // ============================================================
+  //  Easter egg do sabre rosa (3 cliques na Sophie)
+  // ============================================================
+  const SABER_QUOTES = [
+    '"A Padawan está pronta quando o coração dela bate forte." ✦',
+    '"Que a Força esteja com você, pequena Sophie." ✦',
+    '"O caminho do Padawan começa com um sonho dos pais." ✦',
+    '"Há mais luz no caminho dela do que estrelas no céu." ✦',
+    '"O treinamento começa antes do primeiro respiro." ✦',
+  ];
+  function setupEasterEgg() {
+    const sophie = document.querySelector('.sophie-img');
+    if (!sophie) return;
+    let clicks = 0;
+    let timer = null;
+    const flash = document.getElementById('saberFlash');
+    const quote = document.getElementById('saberQuote');
+
+    sophie.addEventListener('click', () => {
+      clicks++;
+      clearTimeout(timer);
+      timer = setTimeout(() => { clicks = 0; }, 1500);
+
+      if (clicks >= 3) {
+        clicks = 0;
+        const text = SABER_QUOTES[Math.floor(Math.random() * SABER_QUOTES.length)];
+        quote.textContent = text;
+        flash.classList.add('active');
+        quote.classList.add('active');
+        setTimeout(() => flash.classList.remove('active'), 800);
+        setTimeout(() => quote.classList.remove('active'), 4500);
+      }
+    });
+  }
+
+  // ============================================================
+  //  Botão compartilhar (Web Share API com fallback)
+  // ============================================================
+  function setupShare() {
+    const btn = document.getElementById('shareBtn');
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      const data = {
+        title: 'Falta pouco pra Sophie',
+        text: 'Estamos contando os dias pra Sophie chegar. Junte-se à torcida:',
+        url: window.location.href,
+      };
+      try {
+        if (navigator.share) {
+          await navigator.share(data);
+        } else {
+          await navigator.clipboard.writeText(data.url);
+          const original = btn.textContent;
+          btn.textContent = 'link copiado ✓';
+          setTimeout(() => { btn.textContent = original; }, 2000);
+        }
+      } catch (e) {
+        // user cancelled
+      }
+    });
+  }
+
   createStars();
   updateCountdown();
   updateProgress();
+  renderMilestones();
+  setupLightbox();
+  setupEasterEgg();
+  setupShare();
   setInterval(updateCountdown, 1000);
   setInterval(updateProgress, 60 * 60 * 1000);
+  setInterval(renderMilestones, 60 * 60 * 1000);
 </script>
 
 </body>
