@@ -639,6 +639,92 @@
     text-transform: uppercase;
   }
 
+  /* ===== Os 4 ciclos da Padawan ===== */
+  .cycles-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .cycle {
+    position: relative;
+    background: rgba(255, 247, 230, 0.5);
+    border: 1px solid #e9d4a3;
+    border-radius: 18px;
+    padding: 18px 14px 20px;
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+    cursor: default;
+    opacity: 0.6;
+  }
+  .cycle:hover {
+    transform: translateY(-4px);
+    opacity: 1;
+    box-shadow: 0 14px 32px rgba(150, 100, 40, 0.18);
+  }
+  .cycle.active {
+    opacity: 1;
+    background: linear-gradient(180deg, #fff8e8 0%, #f6e6c2 100%);
+    border-color: #d9a847;
+    box-shadow: 0 12px 36px rgba(184, 134, 46, 0.28), inset 0 1px 0 rgba(255,255,255,0.7);
+  }
+  .cycle.active::after {
+    content: "agora";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #d9a847 0%, #b8862e 100%);
+    color: #fff8e6;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(150, 100, 40, 0.3);
+  }
+  .cycle-img {
+    width: 100%;
+    max-width: 160px;
+    aspect-ratio: 1;
+    object-fit: contain;
+    margin: 0 auto 8px;
+    display: block;
+    filter: drop-shadow(0 6px 14px rgba(120, 80, 30, 0.18));
+    transition: transform 0.4s ease;
+  }
+  .cycle:hover .cycle-img { transform: scale(1.05) rotate(-1deg); }
+  .cycle.active .cycle-img {
+    animation: cycle-float 4s ease-in-out infinite;
+  }
+  @keyframes cycle-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-4px); }
+  }
+  .cycle-name {
+    font-family: 'Allura', cursive;
+    font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+    color: #b8862e;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .cycle-range {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #8a6a3a;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+  }
+  @media (max-width: 700px) {
+    .cycles-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cycle { padding: 14px 10px 16px; }
+    .cycle-img { max-width: 130px; }
+  }
+  @media (max-width: 380px) {
+    .cycles-row { grid-template-columns: 1fr; }
+  }
+
   /* Linha do tempo dos ultrassons */
   .ultra-timeline {
     position: relative;
@@ -1055,6 +1141,34 @@
        ====================================================== -->
   <div class="extra-sections">
 
+    <!-- ===== Os 4 ciclos da Padawan ===== -->
+    <section class="extra-section">
+      <h2>Os 4 ciclos da Padawan</h2>
+      <p class="section-sub">a evolução da Sophie, de bebê a Cavaleira Jedi</p>
+      <div class="cycles-row" id="cyclesRow">
+        <div class="cycle" data-cycle="iniciante" data-from="0" data-to="13">
+          <img class="cycle-img" src="ciclo-iniciante.png" alt="Sophie Iniciante">
+          <div class="cycle-name">Iniciante</div>
+          <div class="cycle-range">semanas 1 a 13</div>
+        </div>
+        <div class="cycle" data-cycle="aprendiz" data-from="14" data-to="26">
+          <img class="cycle-img" src="ciclo-aprendiz.png" alt="Sophie Aprendiz">
+          <div class="cycle-name">Aprendiz</div>
+          <div class="cycle-range">semanas 14 a 26</div>
+        </div>
+        <div class="cycle" data-cycle="padawan" data-from="27" data-to="40">
+          <img class="cycle-img" src="sophie.png" alt="Sophie Padawan">
+          <div class="cycle-name">Padawan</div>
+          <div class="cycle-range">semanas 27 a 40</div>
+        </div>
+        <div class="cycle" data-cycle="cavaleira" data-from="41" data-to="999">
+          <img class="cycle-img" src="ciclo-cavaleira.png" alt="Sophie Cavaleira">
+          <div class="cycle-name">Cavaleira</div>
+          <div class="cycle-range">depois do nascimento</div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== 1. Significado do nome ===== -->
     <section class="extra-section">
       <h2>De onde vem o nome Sophie</h2>
@@ -1300,6 +1414,14 @@
       document.getElementById('curioSize').textContent = info.size;
       document.getElementById('curioText').textContent = info.text;
     }
+
+    // Destaca o ciclo atual da Padawan
+    document.querySelectorAll('.cycle').forEach(c => {
+      const from = parseInt(c.dataset.from, 10);
+      const to   = parseInt(c.dataset.to, 10);
+      if (currentWeek >= from && currentWeek <= to) c.classList.add('active');
+      else c.classList.remove('active');
+    });
   }
 
   function createStars() {
