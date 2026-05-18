@@ -639,6 +639,89 @@
     text-transform: uppercase;
   }
 
+  /* Linha do tempo dos ultrassons */
+  .ultra-timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    padding-left: 28px;
+  }
+  .ultra-timeline::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, transparent 0%, #d9a847 12%, #d9a847 88%, transparent 100%);
+    opacity: 0.45;
+  }
+  .ultra-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(180px, 280px) 1fr;
+    gap: 24px;
+    align-items: center;
+    background: rgba(255, 247, 230, 0.65);
+    border: 1px solid #e9d4a3;
+    border-radius: 18px;
+    padding: 20px 24px;
+    box-shadow: 0 6px 20px rgba(150, 100, 40, 0.10);
+    text-align: left;
+  }
+  .ultra-item::before {
+    content: "";
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    background: #d9a847;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px #f7efe1, 0 0 14px rgba(217, 168, 71, 0.7);
+    transform: translateY(-50%);
+  }
+  .ultra-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #2a2419;
+    box-shadow: 0 4px 14px rgba(40, 25, 10, 0.25);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .ultra-img:hover { transform: scale(1.02); }
+  .ultra-info .ultra-week {
+    font-family: 'Allura', cursive;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    color: #b8862e;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .ultra-info .ultra-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #8a6a3a;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .ultra-info .ultra-caption {
+    font-family: 'Cormorant Garamond', serif;
+    color: #5a3f1f;
+    font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 700px) {
+    .ultra-timeline { padding-left: 22px; }
+    .ultra-item { grid-template-columns: 1fr; gap: 12px; padding: 16px; }
+    .ultra-item::before { left: -19px; top: 28px; transform: none; }
+    .ultra-info .ultra-week { font-size: 2rem; }
+  }
+
   /* Galeria expandida */
   .expanded-gallery {
     display: grid;
@@ -1008,6 +1091,15 @@
       </div>
     </section>
 
+    <!-- ===== Ultrassons ===== -->
+    <section class="extra-section">
+      <h2>Os ultrassons da Sophie</h2>
+      <p class="section-sub">cada janela que abriu pra gente ver a nossa Padawan crescer</p>
+      <div class="ultra-timeline" id="ultraTimeline">
+        <!-- preenchido por JS conforme as imagens existirem -->
+      </div>
+    </section>
+
     <!-- ===== 4. Galeria expandida ===== -->
     <section class="extra-section">
       <h2>O ensaio no Rio</h2>
@@ -1259,6 +1351,59 @@
   }
 
   // ============================================================
+  //  Ultrassons (renderiza só os que tem arquivo)
+  // ============================================================
+  // TROCAR: edite a semana, data e legenda de cada ultrassom abaixo.
+  // Adicione os arquivos ultra-1.jpg ... ultra-8.jpg na pasta.
+  const ULTRAS = [
+    { file: 'ultra-1.jpg', week: '—', date: '—', caption: 'Legenda do ultrassom 1' },
+    { file: 'ultra-2.jpg', week: '—', date: '—', caption: 'Legenda do ultrassom 2' },
+    { file: 'ultra-3.jpg', week: '—', date: '—', caption: 'Legenda do ultrassom 3' },
+    { file: 'ultra-4.jpg', week: '—', date: '—', caption: 'Legenda do ultrassom 4' },
+    { file: 'ultra-5.jpg', week: '—', date: '—', caption: 'Legenda do ultrassom 5' },
+    { file: 'ultra-6.jpg', week: '—', date: '—', caption: 'Legenda do ultrassom 6' },
+    { file: 'ultra-7.jpg', week: '—', date: '—', caption: 'Legenda do ultrassom 7' },
+    { file: 'ultra-8.jpg', week: '—', date: '—', caption: 'Legenda do ultrassom 8' },
+  ];
+
+  async function renderUltras() {
+    const container = document.getElementById('ultraTimeline');
+    if (!container) return;
+    // Detecta quais arquivos existem antes de renderizar
+    const checks = await Promise.all(ULTRAS.map(async (u) => {
+      try {
+        const r = await fetch(u.file, { method: 'HEAD' });
+        return { ...u, exists: r.ok };
+      } catch (e) {
+        return { ...u, exists: false };
+      }
+    }));
+    const existing = checks.filter(u => u.exists);
+    if (existing.length === 0) {
+      container.innerHTML = '<p style="text-align:center; font-style:italic; color:#8a6a3a; padding:20px;">Os ultrassons da Sophie aparecem aqui em breve.</p>';
+      return;
+    }
+    container.innerHTML = existing.map(u => `
+      <div class="ultra-item">
+        <img class="ultra-img" src="${u.file}" alt="Ultrassom semana ${u.week}" data-lightbox="ultra">
+        <div class="ultra-info">
+          <div class="ultra-week">semana ${u.week}</div>
+          <div class="ultra-date">${u.date}</div>
+          <div class="ultra-caption">${u.caption}</div>
+        </div>
+      </div>
+    `).join('');
+    // Liga lightbox nos ultrassons recém-criados
+    container.querySelectorAll('.ultra-img').forEach(img => {
+      img.addEventListener('click', () => {
+        const lightbox = document.getElementById('lightbox');
+        document.getElementById('lightboxImg').src = img.src;
+        lightbox.classList.add('visible');
+      });
+    });
+  }
+
+  // ============================================================
   //  Lightbox da galeria
   // ============================================================
   function setupLightbox() {
@@ -1342,6 +1487,7 @@
   updateCountdown();
   updateProgress();
   renderMilestones();
+  renderUltras();
   setupLightbox();
   setupEasterEgg();
   setupShare();
